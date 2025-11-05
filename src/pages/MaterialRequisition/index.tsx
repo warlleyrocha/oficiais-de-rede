@@ -9,9 +9,7 @@ import { requestSchema, type RequestFormData } from '@/types/requestMaterial';
 const defaultValues: RequestFormData = {
   officer: {
     name: '',
-    secondName: '',
     registration: '',
-    secondRegistration: '',
     date: '',
   },
   materials: [{ name: '', code: '', unit: 'unidade', quantity: 1 }],
@@ -32,9 +30,9 @@ export function RequestMaterial() {
       onSubmit={handleSubmit}
       submitButtonText="Exportar Mensagem"
     >
-      {({ register, errors, control }) => (
+      {({ register, errors, control, setValue }) => (
         <>
-          <DataOfficer register={register} errors={errors} />
+          <DataOfficer register={register} errors={errors} setValue={setValue} />
           <div className="bg-[#f4f9fd]/80 backdrop-blur-sm rounded-2xl shadow border-0 p-6 pt-1 space-y-6 transform hover:scale-[1.01] transition-all duration-300 hover:shadow-lg">
             <div className="pb-4">
               <h2 className="flex items-center space-x-2 text-xl font-semibold text-[#302b4b]">

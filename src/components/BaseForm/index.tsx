@@ -7,7 +7,12 @@ type BaseFormProps = {
   readonly schema: any;
   readonly defaultValues: any;
   readonly onSubmit: (data: any) => Promise<void> | void;
-  readonly children: (props: { register: any; errors: any; control: any }) => ReactNode;
+  readonly children: (props: {
+    register: any;
+    errors: any;
+    control: any;
+    setValue: any;
+  }) => ReactNode;
   readonly submitButtonText?: string;
   readonly submitButtonTextInvalid?: string;
 };
@@ -28,6 +33,7 @@ export function BaseForm({
     handleSubmit,
     reset,
     control,
+    setValue,
     formState: { errors, isValid },
   } = useForm({
     resolver: zodResolver(schema),
@@ -51,7 +57,7 @@ export function BaseForm({
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 rounded-2xl">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
-        {children({ register, errors, control })}
+        {children({ register, errors, control, setValue })}
 
         {/* Botão de submissão */}
         <div className="flex justify-center bg-[#f4f9fd]/80 backdrop-blur-sm rounded-2xl shadow border-0 p-6 space-y-6 transform hover:scale-[1.01] transition-all duration-300 hover:shadow-lg">
