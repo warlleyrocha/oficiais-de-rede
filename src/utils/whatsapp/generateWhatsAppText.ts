@@ -12,8 +12,8 @@ export function generateWhatsAppText(data: FormData) {
   text += `*DATA:* ${formatDate(officer.date)}\n`;
 
   // Técnicos
-  text += `*EQUIPE:* ${officer.name} / ${officer.secondName}\n`;
-  text += `*MATRÍCULA:* ${officer.registration} / ${officer.secondRegistration}\n`;
+  text += `*EQUIPE:* ${officer.name}`;
+  text += `*MATRÍCULA:* ${officer.registration}`;
 
   // Endereço
   text += `*CIDADE:* ${officer.city}, ${officer.state}\n`;

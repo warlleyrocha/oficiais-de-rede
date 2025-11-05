@@ -66,15 +66,6 @@ export function createLaunchFromFormData(data: FormData): Launch {
         name: data.officer.name,
         registration: data.officer.registration,
       },
-      ...(data.officer.secondName
-        ? [
-            {
-              id: crypto.randomUUID(),
-              name: data.officer.secondName,
-              registration: data.officer.secondRegistration!,
-            },
-          ]
-        : []),
     ],
     materials: data.materials.map((mat) => ({
       id: crypto.randomUUID(),
