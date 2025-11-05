@@ -24,7 +24,7 @@ export const formSchema = z.object({
     registration: z
       .string()
       .min(1, 'Matrícula do técnico é obrigatória')
-      .max(10, 'Matrícula deve ter no máximo 10 caracteres'),
+      .max(25, 'Matrícula deve ter no máximo 25 caracteres'),
     city: z.string().min(1, 'Cidade é obrigatória'),
     state: z
       .string()

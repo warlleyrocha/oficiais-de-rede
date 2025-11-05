@@ -12,8 +12,8 @@ export function generateWhatsAppText(data: FormData) {
   text += `*DATA:* ${formatDate(officer.date)}\n`;
 
   // Técnicos
-  text += `*EQUIPE:* ${officer.name}`;
-  text += `*MATRÍCULA:* ${officer.registration}`;
+  text += `*EQUIPE:* ${officer.name}\n`;
+  text += `*MATRÍCULA:* ${officer.registration}\n\n`;
 
   // Endereço
   text += `*CIDADE:* ${officer.city}, ${officer.state}\n`;
@@ -44,8 +44,8 @@ export function generateRequestText(data: RequestFormData) {
   // Data
   text += `*DATA:* ${formatDate(officer.date)}\n\n`;
   // Técnicos
-  text += `*EQUIPE:* ${officer.name} / ${officer.secondName}\n`;
-  text += `*MATRÍCULA:* ${officer.registration} / ${officer.secondRegistration}\n\n`;
+  text += `*EQUIPE:* ${officer.name}\n`;
+  text += `*MATRÍCULA:* ${officer.registration}\n\n`;
 
   // Materiais
   text += `*MATERIAIS SOLICITADOS:*\n`;
