@@ -21,12 +21,10 @@ export const materialSchema = z
 export const formSchema = z.object({
   officer: z.object({
     name: z.string().min(1, 'Nome do técnico é obrigatório'),
-    secondName: z.string().optional(), // Segundo técnico opcional
     registration: z
       .string()
       .min(1, 'Matrícula do técnico é obrigatória')
       .max(10, 'Matrícula deve ter no máximo 10 caracteres'),
-    secondRegistration: z.string().max(10, 'Matrícula deve ter no máximo 10 caracteres').optional(), // Segunda matrícula opcional
     city: z.string().min(1, 'Cidade é obrigatória'),
     state: z
       .string()

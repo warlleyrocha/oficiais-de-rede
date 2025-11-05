@@ -1,16 +1,35 @@
+import { SelectField } from './SelectField';
 import { FormField } from './FormField';
 import type { FormData } from '../../types/formMaterial';
+import { TEAM } from '@/constants/teams';
 import { Users } from 'lucide-react';
-import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+import type { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 type DataOfficerProps = {
   readonly register: UseFormRegister<FormData>;
   readonly errors: FieldErrors<FormData>;
+  readonly setValue: UseFormSetValue<FormData>;
 };
 
-export function DataOfficer({ register, errors }: DataOfficerProps) {
+export function DataOfficer({ register, errors, setValue }: DataOfficerProps) {
+  const handleTeamChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const team = TEAM.find((eq) => eq.value === e.target.value);
+
+    if (team) {
+      setValue('officer.registration', team.registration);
+    } else {
+      // Limpa os campos se nenhuma equipe for selecionada
+      setValue('officer.registration', '');
+    }
+  };
+
+  const teamPlaceholder = [
+    { value: '', label: 'Selecione uma equipe' },
+    ...TEAM.map((eq) => ({ value: eq.value, label: eq.label })),
+  ];
+
   return (
-    <div className="bg-[#f4f9fd]/80 backdrop-blur-sm rounded-2xl shadow border-0 p-6 pt-1 space-y-6 transform hover:scale-[1.01] transition-all duration-300 hover:shadow-lg">
+    <div className="bg-[#f4f9fd]/80 backdrop-blur-sm rounded-2xl shadow border-0 p-6 space-y-6 transform hover:scale-[1.01] transition-all duration-300 hover:shadow-lg">
       <div className="pb-4">
         <h2 className="flex items-center space-x-2 text-xl font-semibold text-[#302b4b]">
           <div className="w-6 h-6 text-[#302b4b]">
@@ -21,44 +40,28 @@ export function DataOfficer({ register, errors }: DataOfficerProps) {
       </div>
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Nomes dos técnicos */}
-          <FormField<FormData>
+          {/* Seleção de Equipes */}
+          <SelectField<FormData>
             id="officer-name"
             name="officer.name"
-            label="Oficial I *"
-            placeholder="Digite o nome do técnico"
+            label="Equipe *"
+            options={teamPlaceholder}
             register={register}
             required
+            onChange={handleTeamChange}
             error={errors.officer?.name}
           />
-          <FormField<FormData>
-            id="officer-second-name"
-            name="officer.secondName"
-            label="Oficial II"
-            placeholder="Digite o nome do segundo técnico"
-            register={register}
-            error={errors.officer?.secondName}
-          />
 
-          {/* Matrículas */}
+          {/* Matrícula */}
           <FormField<FormData>
             id="officer-registration"
             name="officer.registration"
-            label="Matrícula I *"
-            maxLength={10}
-            placeholder="Ex: 123456"
+            label="Matrícula *"
+            maxLength={25}
+            placeholder="Ex: 301021/301022"
             register={register}
             required
             error={errors.officer?.registration}
-          />
-          <FormField<FormData>
-            id="officer-second-registration"
-            name="officer.secondRegistration"
-            label="Matrícula II"
-            maxLength={10}
-            placeholder="Ex: 654321"
-            register={register}
-            error={errors.officer?.secondRegistration}
           />
         </div>
       </div>

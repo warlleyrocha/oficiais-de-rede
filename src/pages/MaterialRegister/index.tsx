@@ -15,9 +15,7 @@ type FormProps = {
 const defaultValues: FormData = {
   officer: {
     name: '',
-    secondName: '',
     registration: '',
-    secondRegistration: '',
     city: '',
     state: 'MG',
     street: '',
@@ -44,9 +42,9 @@ export function MaterialRegister({ onNewLaunch }: FormProps) {
       onSubmit={handleSubmit}
       submitButtonText="Exportar Mensagem"
     >
-      {({ register, errors, control }) => (
+      {({ register, errors, control, setValue }) => (
         <>
-          <DataOfficer register={register} errors={errors} />
+          <DataOfficer register={register} errors={errors} setValue={setValue} />
           <DataLocation register={register} errors={errors} />
           <DataService register={register} errors={errors} />
           <DataMaterials register={register} errors={errors} control={control} />
