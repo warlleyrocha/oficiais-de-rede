@@ -1,4 +1,6 @@
+// MaterialRegister.tsx
 import { generateWhatsAppText } from '@/utils/whatsapp/generateWhatsAppText';
+import { shareWhatsApp } from '@/utils/whatsapp/shareWhatsApp';
 import { saveLaunchFromForm } from '@/services/storage/launchStorage';
 import { formSchema } from '@/types/formMaterial';
 import type { FormData } from '@/types/formMaterial';
@@ -30,9 +32,13 @@ const defaultValues: FormData = {
 export function MaterialRegister({ onNewLaunch }: FormProps) {
   const handleSubmit = async (data: FormData) => {
     const text = generateWhatsAppText(data);
-    await navigator.clipboard.writeText(text);
     const newLaunch = saveLaunchFromForm(data);
     onNewLaunch?.(newLaunch);
+
+    await shareWhatsApp({
+      text,
+      title: 'Baixa de Material',
+    });
   };
 
   return (
@@ -40,7 +46,7 @@ export function MaterialRegister({ onNewLaunch }: FormProps) {
       schema={formSchema}
       defaultValues={defaultValues}
       onSubmit={handleSubmit}
-      submitButtonText="Exportar Mensagem"
+      submitButtonText="Compartilhar no WhatsApp"
     >
       {({ register, errors, control, setValue }) => (
         <>
@@ -54,5 +60,4 @@ export function MaterialRegister({ onNewLaunch }: FormProps) {
   );
 }
 
-// Exportação default para manter compatibilidade
 export default MaterialRegister;

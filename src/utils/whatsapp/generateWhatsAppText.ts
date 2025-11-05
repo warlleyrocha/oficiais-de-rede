@@ -9,7 +9,7 @@ export function generateWhatsAppText(data: FormData) {
   let text = `*BAIXA DE MATERIAIS*\n\n`;
 
   // Data
-  text += `*DATA:* ${formatDate(officer.date)}\n`;
+  text += `*DATA:* ${formatDate(officer.date)}\n\n`;
 
   // Técnicos
   text += `*EQUIPE:* ${officer.name}\n`;
@@ -24,13 +24,13 @@ export function generateWhatsAppText(data: FormData) {
   text += `*ATIVIDADE REALIZADA:* ${officer.activity}\n\n`;
 
   // Materiais
-  text += `*MATERIAL UTILIZADO:*\n`;
+  text += `*MATERIAIS UTILIZADOS:*\n`;
   materials.forEach((mat, i) => {
     const unitLabel = mat.unit === 'unidade' ? 'unidade(s)' : 'metro(s)';
     text += `${i + 1}. ${mat.name} - Qtd: ${mat.quantity} ${unitLabel}\n*CÓDIGO:* ${mat.code}\n\n`;
   });
 
-  return text;
+  return text.trim();
 }
 
 /**
@@ -51,7 +51,7 @@ export function generateRequestText(data: RequestFormData) {
   text += `*MATERIAIS SOLICITADOS:*\n`;
   materials.forEach((m, i) => {
     const unitLabel = m.unit === 'unidade' ? 'unidade(s)' : 'metro(s)';
-    text += `${i + 1}. ${m.name} - Código: ${m.code} - Qtd: ${m.quantity} ${unitLabel}\n`;
+    text += `${i + 1}. ${m.name} - Qtd: ${m.quantity} ${unitLabel}\n*CÓDIGO:* ${m.code}\n\n`;
   });
 
   return text.trim();

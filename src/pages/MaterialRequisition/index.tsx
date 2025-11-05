@@ -4,6 +4,7 @@ import { BaseForm } from '@/components/BaseForm';
 import { FormField } from '@/components/FormMaterial/FormField';
 import { Calendar1 } from 'lucide-react';
 import { generateRequestText } from '@/utils/whatsapp/generateWhatsAppText';
+import { shareWhatsApp } from '@/utils/whatsapp/shareWhatsApp';
 import { requestSchema, type RequestFormData } from '@/types/requestMaterial';
 
 const defaultValues: RequestFormData = {
@@ -19,8 +20,10 @@ export function RequestMaterial() {
   const handleSubmit = async (data: RequestFormData) => {
     // Gerar texto de requisição
     const text = generateRequestText(data);
-    await navigator.clipboard.writeText(text);
-    console.log('Requisição criada:', data);
+    await shareWhatsApp({
+      text,
+      title: 'Requisição de Material',
+    });
   };
 
   return (
@@ -28,7 +31,7 @@ export function RequestMaterial() {
       schema={requestSchema}
       defaultValues={defaultValues}
       onSubmit={handleSubmit}
-      submitButtonText="Exportar Mensagem"
+      submitButtonText="Compartilhar no WhatsApp"
     >
       {({ register, errors, control, setValue }) => (
         <>
