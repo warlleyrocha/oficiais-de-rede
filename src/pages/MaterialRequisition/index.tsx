@@ -31,7 +31,7 @@ export function RequestMaterial() {
       schema={requestSchema}
       defaultValues={defaultValues}
       onSubmit={handleSubmit}
-      submitButtonText="Exportar Mensagem"
+      submitButtonText="Compartilhar no WhatsApp"
     >
       {({ register, errors, control, setValue }) => (
         <>
