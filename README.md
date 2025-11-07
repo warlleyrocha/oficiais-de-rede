@@ -4,69 +4,97 @@ Um sistema web moderno para gerenciamento e controle de materiais utilizado por 
 
 ## 🚀 Funcionalidades
 
+### Funcionalidades Principais
+
 - **Registro de Baixa de Materiais**: Interface intuitiva para registrar materiais consumidos em serviços, incluindo dados dos técnicos, localização e atividades realizadas
-- **Requisição de Materiais**: Sistema para solicitar novos materiais com informações detalhadas
-- **Visualização de Histórico**: Consulta completa dos materiais utilizados com interface expansível e detalhada
-- **Integração WhatsApp**: Exportação automática de mensagens formatadas para WhatsApp (copiadas para área de transferência)
-- **Armazenamento Local**: Dados salvos diretamente no navegador (localStorage) com serviço dedicado
-- **Validação Robusta**: Formulários com validação completa usando Zod
-- **Interface Responsiva**: Design adaptável para diferentes dispositivos com componentes UI modernos
-- **Experiência do Usuário**: Formulários otimizados com React Hook Form e feedback visual
+- **Requisição de Materiais**: Sistema para solicitar novos materiais com informações detalhadas e formatação automática
+- **Visualização de Histórico**: Consulta completa dos materiais utilizados com interface expansível, ordenação automática por data e visualização em tabela
+- **Integração WhatsApp Avançada**: Sistema inteligente de compartilhamento que utiliza Web Share API quando disponível, com fallback automático para WhatsApp Web e cópia para área de transferência
+- **Armazenamento Local Persistente**: Dados salvos diretamente no navegador (localStorage) com serviço dedicado e persistência entre sessões
+- **Validação Robusta**: Formulários com validação completa usando Zod 4.1 com mensagens de erro personalizadas
+- **Interface Responsiva e Moderna**: Design adaptável para diferentes dispositivos com gradientes, animações e efeitos de hover
+- **Experiência do Usuário Otimizada**: Formulários otimizados com React Hook Form, feedback visual imediato e componentes reutilizáveis
+
+### Funcionalidades de Interface
+
+- **Splash Screen Animado**: Tela de carregamento inicial com animação SVG personalizada
+- **Header Dinâmico Contextual**: Cabeçalho que se adapta automaticamente à rota atual, exibindo títulos e subtítulos específicos, com logo clicável para retorno à home
+- **Navegação Intuitiva**: Página inicial com cards interativos e gradientes visuais para cada funcionalidade
+- **Histórico Interativo**: Cards expansíveis com animações suaves, exibição de data/hora formatada e tabela organizada de materiais
+- **Feedback Visual**: Componentes de feedback para ações do usuário (sucesso, erros, validações)
+- **Footer Informativo**: Rodapé com informações do desenvolvedor e link para LinkedIn
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Frontend**: React 19+ com TypeScript 5.8
-- **Roteamento**: React Router DOM 7.9
-- **Formulários**: React Hook Form 7.6 + Hookform Resolvers
-- **Validação**: Zod 4.1
-- **Estilização**: Tailwind CSS 4.1 (com Vite Plugin)
-- **Ícones**: React Icons 5.5 + Lucide React
-- **UI Components**: Radix UI (Collapsible) + shadcn/ui
-- **Utilitários**: Tailwind Merge, clsx, Class Variance Authority
-- **Build Tool**: Vite 7.1 com SWC Plugin
-- **Linting**: ESLint 9.3 + TypeScript ESLint
-- **Formatação**: Prettier 3.6 (configuração personalizada)
+### Core
+- **Frontend**: React 19.1.1 com TypeScript 5.8.3
+- **Roteamento**: React Router DOM 7.9.3
+- **Build Tool**: Vite 7.1.7 com SWC Plugin (@vitejs/plugin-react-swc 4.1.0)
+
+### Formulários e Validação
+- **Formulários**: React Hook Form 7.63.0 + @hookform/resolvers 5.2.2
+- **Validação**: Zod 4.1.11 com schemas tipados
+
+### Estilização e UI
+- **CSS Framework**: Tailwind CSS 4.1.13 com @tailwindcss/vite 4.1.13
+- **Animações**: tailwindcss-animate 1.0.7 + tw-animate-css 1.4.0
+- **Utilitários CSS**: Tailwind Merge 3.3.1, clsx 2.1.1, Class Variance Authority 0.7.1
+- **UI Components**: Radix UI Collapsible 1.1.12 + shadcn/ui
+- **Ícones**: React Icons 5.5.0 + Lucide React 0.544.0
+
+### Ferramentas de Desenvolvimento
+- **Linting**: ESLint 9.36.0 + TypeScript ESLint 8.44.1
+- **Formatação**: Prettier 3.6.2 com configuração personalizada
+- **Type Definitions**: @types/react 19.1.13, @types/react-dom 19.1.9, @types/node 24.6.2
+
+### PWA e Produção
 - **PWA**: Service Worker + Web Manifest para funcionalidade offline
+- **TypeScript**: Configuração estrita com múltiplos tsconfig (app, node)
 
 ## 📁 Estrutura do Projeto
 
 ```
 src/
-├── assets/              # Recursos estáticos (imagens, ícones)
+├── assets/              # Recursos estáticos (imagens, logos, ícones)
 ├── components/           # Componentes reutilizáveis
-│   ├── BaseForm/        # Componente base para formulários
+│   ├── BaseForm/        # Componente base para formulários com React Hook Form
 │   ├── FormMaterial/    # Componentes do formulário de materiais
-│   │   ├── DataLocation.tsx    # Formulário de localização
-│   │   ├── DataMaterials.tsx   # Formulário de materiais
-│   │   ├── DataOfficer.tsx     # Formulário de dados dos técnicos
-│   │   ├── DataService.tsx     # Formulário de serviço/atividade
-│   │   ├── FormField.tsx       # Campo de formulário reutilizável
-│   │   └── SelectField.tsx     # Campo de seleção reutilizável
-│   ├── Header/          # Componente de cabeçalho
-│   ├── SuccessFeedback/ # Componente de feedback de sucesso
+│   │   ├── DataLocation.tsx    # Formulário de localização (cidade, estado, endereço)
+│   │   ├── DataMaterials.tsx   # Formulário de materiais (lista dinâmica)
+│   │   ├── DataOfficer.tsx   # Formulário de dados dos técnicos (nome, matrícula)
+│   │   ├── DataService.tsx    # Formulário de serviço/atividade realizada
+│   │   ├── FormField.tsx      # Campo de formulário reutilizável
+│   │   └── SelectField.tsx    # Campo de seleção reutilizável
+│   ├── Header/          # Componente de cabeçalho dinâmico com navegação
+│   ├── SplashScreen/    # Tela de carregamento inicial animada
+│   ├── SuccessFeedback/ # Componente de feedback de sucesso (toast)
 │   └── ui/              # Componentes UI (shadcn/ui)
-│       └── collapsible.tsx
-├── lib/                 # Bibliotecas e utilitários (utils.ts)
+│       └── collapsible.tsx     # Componente expansível para histórico
+├── constants/           # Constantes e configurações
+│   └── teams.ts         # Definição de equipes predefinidas
+├── lib/                 # Bibliotecas e utilitários
+│   └── utils.ts         # Utilitários gerais (cn, classNames)
 ├── pages/               # Páginas da aplicação
-│   ├── Home/           # Página inicial com navegação
-│   ├── MaterialRegister/      # Página de registro de baixa
+│   ├── Home/           # Página inicial com navegação e cards interativos
+│   ├── MaterialRegister/      # Página de registro de baixa de materiais
 │   ├── MaterialRequisition/   # Página de requisição de materiais
-│   └── MaterialHistory/       # Página de histórico
+│   └── MaterialHistory/       # Página de histórico com cards expansíveis
 ├── services/            # Serviços e lógica de negócio
 │   └── storage/        # Serviço de armazenamento (localStorage)
-│       └── launchStorage.ts
+│       └── launchStorage.ts   # Gerenciamento de lançamentos (CRUD)
 ├── types/              # Definições de tipos TypeScript
-│   ├── formMaterial.ts
-│   └── requestMaterial.ts
+│   ├── formMaterial.ts         # Tipos para formulário de baixa
+│   └── requestMaterial.ts      # Tipos para formulário de requisição
 ├── utils/              # Utilitários e helpers
-│   ├── formatDate.ts           # Formatação de datas
+│   ├── formatDate.ts           # Formatação de datas (pt-BR)
 │   ├── statesUtils.ts          # Utilitários de estados brasileiros
-│   ├── textUtils.ts            # Utilitários de texto
-│   ├── validationFormMaterial.ts # Validações
-│   └── whatsapp/               # Geração de textos para WhatsApp
-│       └── generateWhatsAppText.ts
-├── App.tsx             # Componente principal
-├── index.css           # Estilos globais
+│   ├── textUtils.ts            # Utilitários de texto e formatação
+│   ├── validationFormMaterial.ts # Schemas de validação Zod
+│   └── whatsapp/               # Geração e compartilhamento WhatsApp
+│       ├── generateWhatsAppText.ts # Geração de mensagens formatadas
+│       └── shareWhatsApp.ts        # Sistema de compartilhamento inteligente
+├── App.tsx             # Componente principal com rotas e lógica de estado
+├── index.css           # Estilos globais e variáveis CSS
 └── main.tsx            # Ponto de entrada da aplicação
 ```
 
@@ -122,6 +150,25 @@ npm run preview
 yarn preview
 ```
 
+## ✨ Novidades e Melhorias Recentes
+
+### Interface e UX
+- ✅ **Splash Screen**: Tela de carregamento inicial com animação SVG personalizada
+- ✅ **Header Contextual**: Header dinâmico que se adapta automaticamente à rota atual
+- ✅ **Navegação Melhorada**: Cards interativos na home com gradientes e hover effects
+- ✅ **Histórico Aprimorado**: Interface expansível com tabela organizada e ordenação automática
+
+### Funcionalidades
+- ✅ **WhatsApp Inteligente**: Sistema de compartilhamento que usa Web Share API nativa quando disponível
+- ✅ **Fallback Automático**: Fallback inteligente para WhatsApp Web com cópia automática
+- ✅ **Ordenação Automática**: Histórico ordenado por data (mais recentes primeiro)
+- ✅ **Formatação de Datas**: Exibição de data e hora formatadas em português brasileiro
+
+### Arquitetura
+- ✅ **Serviço de Storage**: Sistema dedicado para gerenciamento de localStorage
+- ✅ **Componentes Reutilizáveis**: BaseForm e componentes de formulário modulares
+- ✅ **Constantes Organizadas**: Sistema de equipes e configurações centralizadas
+
 ## 📋 Como Usar
 
 ### 1. Página Inicial
@@ -135,23 +182,30 @@ yarn preview
    - Preencha os dados dos técnicos (nome, matrícula, cidade, estado, endereço)
    - Informe a atividade realizada
    - Adicione os materiais utilizados (nome, código, quantidade, unidade)
-   - Clique em "Exportar Mensagem"
-   - A mensagem formatada será copiada para a área de transferência
-   - Os dados são automaticamente salvos no histórico
+   - Clique em "Compartilhar no WhatsApp"
+   - O sistema tentará usar a Web Share API do dispositivo (se disponível)
+   - Caso contrário, abrirá o WhatsApp Web com a mensagem formatada
+   - A mensagem também será copiada automaticamente para a área de transferência
+   - Os dados são automaticamente salvos no histórico local
 
 ### 3. Requisição de Material
    - Selecione "Requisição de Material" na página inicial
-   - Preencha os dados dos técnicos
-   - Adicione os materiais solicitados
-   - Clique em "Exportar Mensagem"
-   - A mensagem formatada será copiada para enviar via WhatsApp
-   - Os dados são automaticamente salvos no histórico (EM DESENVOLVIMENTO)
+   - Preencha os dados dos técnicos (nome, matrícula)
+   - Informe a data da requisição
+   - Adicione os materiais solicitados (nome, código, quantidade, unidade)
+   - Clique em "Compartilhar no WhatsApp"
+   - A mensagem formatada será preparada para envio via WhatsApp
+   - O sistema utiliza o mesmo mecanismo inteligente de compartilhamento
 
 ### 4. Visualizar Histórico
    - Selecione "Histórico de Baixas" na página inicial
-   - Consulte todos os registros de baixa organizados por data
-   - Clique em cada card para expandir e ver detalhes completos
-   - Visualize técnicos, localização, atividade e materiais utilizados
+   - Visualize todos os registros de baixa automaticamente ordenados por data (mais recentes primeiro)
+   - Cada card exibe data formatada, horário, atividade e localização
+   - Clique em cada card para expandir e ver detalhes completos:
+     - Lista de técnicos com nome e matrícula
+     - Tabela organizada de materiais utilizados (nome, código, quantidade, unidade)
+   - Os cards possuem animações suaves de expansão/colapso
+   - Retorne à home clicando no logo no cabeçalho
 
 ### 5. Gerenciar Dados
    - Todos os dados são automaticamente salvos no navegador (localStorage)
@@ -186,18 +240,36 @@ O projeto utiliza **Zod 4.1** para validação de schemas, garantindo:
 
 ## 🌟 Características Técnicas
 
-- **Performance**: Otimizado com Vite 7.1 + SWC para builds ultra-rápidas
-- **Roteamento**: Navegação SPA com React Router DOM 7.9 e rotas dinâmicas
-- **Type Safety**: TypeScript 5.8 com tipagem estrita e schemas Zod integrados
-- **Responsivo**: Tailwind CSS 4.1 com design system moderno e componentes UI acessíveis
-- **Ícones**: Biblioteca completa React Icons + Lucide React para interface rica
-- **PWA**: Funciona offline após primeiro carregamento com Service Worker
-- **Persistência**: LocalStorage com serviço dedicado para gerenciamento de dados
-- **Integração WhatsApp**: Geração automática de mensagens formatadas prontas para envio
-- **Componentes Modulares**: Arquitetura baseada em componentes reutilizáveis
-- **Validação em Tempo Real**: Validação de formulários com feedback visual imediato
-- **Code Quality**: ESLint + Prettier para código consistente e limpo
-- **Arquitetura**: Separação clara entre páginas, componentes, serviços e utilitários
+### Performance e Build
+- **Build Ultra-Rápido**: Otimizado com Vite 7.1 + SWC Plugin para compilação extremamente rápida
+- **Code Splitting**: Carregamento otimizado de componentes e rotas
+- **PWA Ready**: Funciona offline após primeiro carregamento com Service Worker e Web Manifest
+
+### Arquitetura e Type Safety
+- **TypeScript Estrito**: TypeScript 5.8 com tipagem estrita habilitada e inferência de tipos
+- **Schema Validation**: Zod 4.1 com schemas tipados e inferência automática de tipos
+- **Componentes Modulares**: Arquitetura baseada em componentes reutilizáveis e separação de responsabilidades
+- **Arquitetura Limpa**: Separação clara entre páginas, componentes, serviços, tipos e utilitários
+
+### Interface e UX
+- **Design Moderno**: Tailwind CSS 4.1 com design system completo, gradientes e animações
+- **Responsivo**: Design adaptável para mobile, tablet e desktop
+- **Acessibilidade**: Componentes UI baseados em Radix UI com suporte a acessibilidade
+- **Ícones Completos**: React Icons 5.5 + Lucide React para interface rica e consistente
+- **Animações Suaves**: Transições e animações com Tailwind Animate e CSS personalizado
+
+### Funcionalidades Avançadas
+- **Roteamento Inteligente**: React Router DOM 7.9 com rotas dinâmicas e navegação contextual
+- **Persistência Local**: LocalStorage com serviço dedicado para gerenciamento de dados
+- **Web Share API**: Integração nativa com APIs do dispositivo quando disponível
+- **Fallback Inteligente**: Sistema de fallback automático para WhatsApp Web e cópia de texto
+- **Validação em Tempo Real**: Validação de formulários com feedback visual imediato usando React Hook Form
+- **Ordenação Automática**: Histórico ordenado automaticamente por data (mais recentes primeiro)
+
+### Qualidade de Código
+- **Linting**: ESLint 9.3 com configuração personalizada para React + TypeScript
+- **Formatação**: Prettier 3.6 para código consistente e limpo
+- **Type Safety**: Tipagem estrita em todos os níveis (props, estados, funções, dados)
 
 ## 🤝 Contribuição
 
