@@ -26,10 +26,10 @@ export default function Home() {
     },
     {
       id: 3,
-      label: 'Histórico de Baixas',
-      description: 'Consultar registros anteriores',
+      label: 'Relatório de Serviços',
+      description: 'Gerar relatório de serviços realizados',
       icon: <History size={28} color="#2d2854" />,
-      path: '/history',
+      path: '/service-report',
       color: 'from-[#993649] to-[#b23c34]',
       bgColor: 'bg-red-50',
     },
@@ -47,7 +47,7 @@ export default function Home() {
           <button
             key={button.id}
             className="w-full p-0 overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all bg-white duration-200 active:scale-98 cursor-pointer group border-0"
-            onClick={() => navigate(button.path)}
+            onClick={() => button.path && navigate(button.path)}
           >
             <div className={`h-1 bg-gradient-to-r ${button.color}`} />
             <div className="p-6">

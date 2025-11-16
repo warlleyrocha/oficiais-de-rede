@@ -1,7 +1,7 @@
 // MaterialRegister.tsx
 import { generateWhatsAppText } from '@/utils/whatsapp/generateWhatsAppText';
 import { shareWhatsApp } from '@/utils/whatsapp/shareWhatsApp';
-import { saveLaunchFromForm } from '@/services/storage/launchStorage';
+import { saveLaunchFromForm } from '@/services/storage/materialLaunchStorage';
 import { formSchema } from '@/types/formMaterial';
 import type { FormData } from '@/types/formMaterial';
 import { DataOfficer } from '@/components/FormMaterial/DataOfficer';
