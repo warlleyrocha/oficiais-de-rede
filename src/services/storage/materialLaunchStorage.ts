@@ -86,4 +86,4 @@ export function saveLaunchFromForm(data: FormData): MaterialLaunch {
 
 // Mantém compatibilidade com código antigo
 export { getMaterialLaunches as getLaunches };
-export type { MaterialLaunch as Launch };
+export type { MaterialLaunch as Launch } from '@/types/history';
