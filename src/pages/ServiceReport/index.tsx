@@ -3,6 +3,7 @@ import { generateServiceReportText } from '@/utils/whatsapp/generateWhatsAppText
 import { shareWhatsApp } from '@/utils/whatsapp/shareWhatsApp';
 import { serviceSchema } from '@/types/serviceReport';
 import type { z } from 'zod';
+import { saveServiceReportFromForm } from '@/services/storage/serviceReportStorage';
 import { BaseForm } from '@/components/BaseForm';
 import { Users, MapPin, Clock, Wrench, ListCollapse } from 'lucide-react';
 import { FormField } from '@/components/FormMaterial/FormField';
@@ -45,6 +46,9 @@ const teamOptions = [
 
 export function ServiceReport() {
   const handleSubmit = async (data: ServiceFormData) => {
+    // Salvar no storage
+    saveServiceReportFromForm(data);
+    
     const text = generateServiceReportText(data);
     await shareWhatsApp({
       text,

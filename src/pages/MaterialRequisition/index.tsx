@@ -6,6 +6,7 @@ import { Calendar1 } from 'lucide-react';
 import { generateRequestText } from '@/utils/whatsapp/generateWhatsAppText';
 import { shareWhatsApp } from '@/utils/whatsapp/shareWhatsApp';
 import { requestSchema, type RequestFormData } from '@/types/requestMaterial';
+import { saveRequestFromForm } from '@/services/storage/requestStorage';
 
 const defaultValues: RequestFormData = {
   officer: {
@@ -18,6 +19,9 @@ const defaultValues: RequestFormData = {
 
 export function RequestMaterial() {
   const handleSubmit = async (data: RequestFormData) => {
+    // Salvar no storage
+    saveRequestFromForm(data);
+    
     // Gerar texto de requisição
     const text = generateRequestText(data);
     await shareWhatsApp({

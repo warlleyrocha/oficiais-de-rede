@@ -1,14 +1,25 @@
 import { useNavigate } from 'react-router-dom';
+import { FiClock } from 'react-icons/fi';
 
 import FFALogo from '@/assets/logoFFA.png';
 
 type HeaderProps = {
   readonly title: string;
   readonly subtitle?: string;
+  readonly showHistoryButton?: boolean;
+  readonly historyType?: 'material' | 'request' | 'service';
 };
 
-export function Header({ title, subtitle }: HeaderProps) {
+export function Header({
+  title,
+  subtitle,
+  showHistoryButton = false,
+  historyType = 'material',
+}: HeaderProps) {
   const navigate = useNavigate();
+  const handleHistoryClick = () => {
+    navigate(`/historico/${historyType}`);
+  };
 
   return (
     <header className="relative overflow-hidden bg-gradient-to-r from-[#302b4b] to-[#b00000] shadow-md border-b border-transparent">
@@ -33,6 +44,18 @@ export function Header({ title, subtitle }: HeaderProps) {
             <p className="text-sm md:text-base text-white/75">{subtitle}</p>
           </div>
         </div>
+        {/* Botão de Histórico */}
+        {showHistoryButton && (
+          <button
+            type="button"
+            onClick={handleHistoryClick}
+            className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-all duration-200 backdrop-blur-sm border border-white/30 hover:border-white/50 shadow-lg"
+            aria-label="Ver histórico"
+          >
+            <FiClock className="w-5 h-5" />
+            <span className="font-medium hidden sm:inline">Histórico</span>
+          </button>
+        )}
       </div>
     </header>
   );
