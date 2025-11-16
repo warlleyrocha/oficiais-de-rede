@@ -1,5 +1,6 @@
 {
   "name": "oficiais-de-rede",
+  "description": "Sistema web moderno para gerenciamento completo de materiais e relatórios de serviços para oficiais de rede em serviços de campo",
   "private": true,
   "version": "0.0.0",
   "type": "module",

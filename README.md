@@ -1,6 +1,6 @@
 # 📦 Oficiais de Rede
 
-Um sistema web moderno para gerenciamento e controle de materiais utilizado por oficiais de rede em serviços de campo, permitindo o registro de baixas, requisições de materiais e visualização do histórico de consumo.
+> Sistema web moderno para gerenciamento completo de materiais e relatórios de serviços utilizado por oficiais de rede em serviços de campo. Permite registro de baixas, requisições de materiais, geração de relatórios de serviços e visualização de histórico unificado com armazenamento local persistente.
 
 ## 🚀 Funcionalidades
 
@@ -8,9 +8,10 @@ Um sistema web moderno para gerenciamento e controle de materiais utilizado por 
 
 - **Registro de Baixa de Materiais**: Interface intuitiva para registrar materiais consumidos em serviços, incluindo dados dos técnicos, localização e atividades realizadas
 - **Requisição de Materiais**: Sistema para solicitar novos materiais com informações detalhadas e formatação automática
-- **Visualização de Histórico**: Consulta completa dos materiais utilizados com interface expansível, ordenação automática por data e visualização em tabela
+- **Relatório de Serviços**: Formulário completo para gerar relatórios detalhados de serviços realizados, incluindo dados da equipe, horários, detalhes técnicos, materiais utilizados, pendências e observações
+- **Histórico Unificado**: Sistema de visualização de histórico que suporta três tipos de registros (baixas, requisições e relatórios de serviço) com interface expansível, ordenação automática por data e visualização específica para cada tipo
 - **Integração WhatsApp Avançada**: Sistema inteligente de compartilhamento que utiliza Web Share API quando disponível, com fallback automático para WhatsApp Web e cópia para área de transferência
-- **Armazenamento Local Persistente**: Dados salvos diretamente no navegador (localStorage) com serviço dedicado e persistência entre sessões
+- **Armazenamento Local Persistente**: Dados salvos diretamente no navegador (localStorage) com serviços dedicados para cada tipo de registro e persistência entre sessões
 - **Validação Robusta**: Formulários com validação completa usando Zod 4.1 com mensagens de erro personalizadas
 - **Interface Responsiva e Moderna**: Design adaptável para diferentes dispositivos com gradientes, animações e efeitos de hover
 - **Experiência do Usuário Otimizada**: Formulários otimizados com React Hook Form, feedback visual imediato e componentes reutilizáveis
@@ -18,9 +19,9 @@ Um sistema web moderno para gerenciamento e controle de materiais utilizado por 
 ### Funcionalidades de Interface
 
 - **Splash Screen Animado**: Tela de carregamento inicial com animação SVG personalizada
-- **Header Dinâmico Contextual**: Cabeçalho que se adapta automaticamente à rota atual, exibindo títulos e subtítulos específicos, com logo clicável para retorno à home
+- **Header Dinâmico Contextual**: Cabeçalho que se adapta automaticamente à rota atual, exibindo títulos e subtítulos específicos, com logo clicável para retorno à home e botão de histórico contextual
 - **Navegação Intuitiva**: Página inicial com cards interativos e gradientes visuais para cada funcionalidade
-- **Histórico Interativo**: Cards expansíveis com animações suaves, exibição de data/hora formatada e tabela organizada de materiais
+- **Histórico Interativo Multi-tipo**: Cards expansíveis com animações suaves, exibição de data/hora formatada e visualização específica para cada tipo de registro (baixas, requisições e relatórios)
 - **Feedback Visual**: Componentes de feedback para ações do usuário (sucesso, erros, validações)
 - **Footer Informativo**: Rodapé com informações do desenvolvedor e link para LinkedIn
 
@@ -66,6 +67,8 @@ src/
 │   │   ├── FormField.tsx      # Campo de formulário reutilizável
 │   │   └── SelectField.tsx    # Campo de seleção reutilizável
 │   ├── Header/          # Componente de cabeçalho dinâmico com navegação
+│   ├── History/         # Componente de histórico genérico e reutilizável
+│   │   └── GenericHistory.tsx # Componente unificado para exibir diferentes tipos de histórico
 │   ├── SplashScreen/    # Tela de carregamento inicial animada
 │   ├── SuccessFeedback/ # Componente de feedback de sucesso (toast)
 │   └── ui/              # Componentes UI (shadcn/ui)
@@ -78,13 +81,19 @@ src/
 │   ├── Home/           # Página inicial com navegação e cards interativos
 │   ├── MaterialRegister/      # Página de registro de baixa de materiais
 │   ├── MaterialRequisition/   # Página de requisição de materiais
-│   └── MaterialHistory/       # Página de histórico com cards expansíveis
+│   ├── ServiceReport/          # Página de relatório de serviços
+│   └── MaterialHistory/        # Página de histórico unificado com suporte a múltiplos tipos
 ├── services/            # Serviços e lógica de negócio
-│   └── storage/        # Serviço de armazenamento (localStorage)
-│       └── launchStorage.ts   # Gerenciamento de lançamentos (CRUD)
+│   └── storage/        # Serviços de armazenamento (localStorage)
+│       ├── materialLaunchStorage.ts   # Gerenciamento de lançamentos de baixa (CRUD)
+│       ├── requestStorage.ts          # Gerenciamento de requisições (CRUD)
+│       ├── serviceReportStorage.ts     # Gerenciamento de relatórios de serviço (CRUD)
+│       └── storageMigration.ts        # Utilitários de migração de dados
 ├── types/              # Definições de tipos TypeScript
 │   ├── formMaterial.ts         # Tipos para formulário de baixa
-│   └── requestMaterial.ts      # Tipos para formulário de requisição
+│   ├── requestMaterial.ts      # Tipos para formulário de requisição
+│   ├── serviceReport.ts         # Tipos para formulário de relatório de serviço
+│   └── history.ts               # Tipos unificados para histórico (MaterialLaunch, MaterialRequest, ServiceReport)
 ├── utils/              # Utilitários e helpers
 │   ├── formatDate.ts           # Formatação de datas (pt-BR)
 │   ├── statesUtils.ts          # Utilitários de estados brasileiros
@@ -152,11 +161,17 @@ yarn preview
 
 ## ✨ Novidades e Melhorias Recentes
 
+### Novas Funcionalidades
+- ✅ **Relatório de Serviços**: Nova funcionalidade completa para geração de relatórios detalhados de serviços, incluindo dados da equipe, horários, detalhes técnicos, materiais, pendências e observações
+- ✅ **Histórico Unificado**: Sistema de histórico que suporta três tipos de registros (baixas, requisições e relatórios) com visualização específica para cada tipo
+- ✅ **Componente GenericHistory**: Componente reutilizável que exibe diferentes tipos de histórico com layouts personalizados
+- ✅ **Storage Modular**: Serviços de armazenamento separados e dedicados para cada tipo de registro (materialLaunchStorage, requestStorage, serviceReportStorage)
+
 ### Interface e UX
 - ✅ **Splash Screen**: Tela de carregamento inicial com animação SVG personalizada
-- ✅ **Header Contextual**: Header dinâmico que se adapta automaticamente à rota atual
-- ✅ **Navegação Melhorada**: Cards interativos na home com gradientes e hover effects
-- ✅ **Histórico Aprimorado**: Interface expansível com tabela organizada e ordenação automática
+- ✅ **Header Contextual**: Header dinâmico que se adapta automaticamente à rota atual com botão de histórico contextual
+- ✅ **Navegação Melhorada**: Cards interativos na home com gradientes e hover effects para três funcionalidades
+- ✅ **Histórico Aprimorado**: Interface expansível com tabela organizada, ordenação automática e visualização específica por tipo
 
 ### Funcionalidades
 - ✅ **WhatsApp Inteligente**: Sistema de compartilhamento que usa Web Share API nativa quando disponível
@@ -165,9 +180,10 @@ yarn preview
 - ✅ **Formatação de Datas**: Exibição de data e hora formatadas em português brasileiro
 
 ### Arquitetura
-- ✅ **Serviço de Storage**: Sistema dedicado para gerenciamento de localStorage
+- ✅ **Serviços de Storage**: Sistema dedicado e modular para gerenciamento de localStorage
 - ✅ **Componentes Reutilizáveis**: BaseForm e componentes de formulário modulares
 - ✅ **Constantes Organizadas**: Sistema de equipes e configurações centralizadas
+- ✅ **Tipos Unificados**: Sistema de tipos TypeScript unificado para histórico com suporte a múltiplos tipos
 
 ## 📋 Como Usar
 
@@ -175,7 +191,7 @@ yarn preview
    - Acesse a aplicação e visualize as três opções principais:
      - **Baixa de Material**: Registrar materiais utilizados
      - **Requisição de Material**: Solicitar novos materiais
-     - **Histórico de Baixas**: Consultar registros anteriores
+     - **Relatório de Serviços**: Gerar relatório de serviços realizados
 
 ### 2. Registrar Baixa de Material
    - Selecione "Baixa de Material" na página inicial
@@ -187,6 +203,7 @@ yarn preview
    - Caso contrário, abrirá o WhatsApp Web com a mensagem formatada
    - A mensagem também será copiada automaticamente para a área de transferência
    - Os dados são automaticamente salvos no histórico local
+   - Acesse o histórico clicando no botão "Histórico" no cabeçalho
 
 ### 3. Requisição de Material
    - Selecione "Requisição de Material" na página inicial
@@ -196,20 +213,42 @@ yarn preview
    - Clique em "Compartilhar no WhatsApp"
    - A mensagem formatada será preparada para envio via WhatsApp
    - O sistema utiliza o mesmo mecanismo inteligente de compartilhamento
+   - Os dados são automaticamente salvos no histórico local
+   - Acesse o histórico clicando no botão "Histórico" no cabeçalho
 
-### 4. Visualizar Histórico
-   - Selecione "Histórico de Baixas" na página inicial
-   - Visualize todos os registros de baixa automaticamente ordenados por data (mais recentes primeiro)
-   - Cada card exibe data formatada, horário, atividade e localização
+### 4. Relatório de Serviços
+   - Selecione "Relatório de Serviços" na página inicial
+   - Preencha os dados da equipe (supervisor, equipe, data, hora da atribuição)
+   - Informe a localização e tipo de serviço
+   - Preencha os horários (deslocamento, chegada, testes, identificação da falha, normalização)
+   - Adicione os detalhes técnicos (causa da falha, testado por, número do cabo, lote, metragens)
+   - Adicione os materiais utilizados (nome, código, quantidade, unidade)
+   - Informe pendências e observações (opcional)
+   - Clique em "Compartilhar Relatório no WhatsApp"
+   - A mensagem formatada será preparada para envio via WhatsApp
+   - O sistema utiliza o mesmo mecanismo inteligente de compartilhamento
+   - Os dados são automaticamente salvos no histórico local
+   - Acesse o histórico clicando no botão "Histórico" no cabeçalho
+
+### 5. Visualizar Histórico
+   - Acesse o histórico através do botão "Histórico" no cabeçalho de qualquer página de formulário
+   - O histórico é exibido automaticamente filtrado pelo tipo correspondente (baixas, requisições ou relatórios)
+   - Visualize todos os registros automaticamente ordenados por data (mais recentes primeiro)
+   - Cada card exibe informações específicas do tipo:
+     - **Baixas**: Data formatada, horário, atividade e localização
+     - **Requisições**: Data formatada, horário e badge de requisição
+     - **Relatórios**: Data formatada, horário, tipo de serviço e localização
    - Clique em cada card para expandir e ver detalhes completos:
-     - Lista de técnicos com nome e matrícula
-     - Tabela organizada de materiais utilizados (nome, código, quantidade, unidade)
+     - **Baixas**: Lista de técnicos e tabela de materiais utilizados
+     - **Requisições**: Solicitante e tabela de materiais solicitados
+     - **Relatórios**: Detalhes do serviço, tabela de materiais, pendências e observações
    - Os cards possuem animações suaves de expansão/colapso
    - Retorne à home clicando no logo no cabeçalho
 
-### 5. Gerenciar Dados
+### 6. Gerenciar Dados
    - Todos os dados são automaticamente salvos no navegador (localStorage)
    - Os dados persistem entre sessões
+   - Cada tipo de registro é armazenado separadamente
    - Não há necessidade de configuração adicional
 
 ## 🔧 Scripts Disponíveis
@@ -230,6 +269,7 @@ O projeto utiliza **Zod 4.1** para validação de schemas, garantindo:
 - Validação tanto no frontend quanto na tipagem TypeScript
 - Integração perfeita com React Hook Form via @hookform/resolvers
 - Schema inference para máxima type safety
+- Validação específica para cada tipo de formulário (baixa, requisição, relatório)
 
 ## 🎨 Padrões de Código
 
@@ -250,6 +290,7 @@ O projeto utiliza **Zod 4.1** para validação de schemas, garantindo:
 - **Schema Validation**: Zod 4.1 com schemas tipados e inferência automática de tipos
 - **Componentes Modulares**: Arquitetura baseada em componentes reutilizáveis e separação de responsabilidades
 - **Arquitetura Limpa**: Separação clara entre páginas, componentes, serviços, tipos e utilitários
+- **Storage Modular**: Serviços de armazenamento dedicados e separados para cada tipo de dado
 
 ### Interface e UX
 - **Design Moderno**: Tailwind CSS 4.1 com design system completo, gradientes e animações
@@ -260,11 +301,12 @@ O projeto utiliza **Zod 4.1** para validação de schemas, garantindo:
 
 ### Funcionalidades Avançadas
 - **Roteamento Inteligente**: React Router DOM 7.9 com rotas dinâmicas e navegação contextual
-- **Persistência Local**: LocalStorage com serviço dedicado para gerenciamento de dados
+- **Persistência Local**: LocalStorage com serviços dedicados para gerenciamento de dados
 - **Web Share API**: Integração nativa com APIs do dispositivo quando disponível
 - **Fallback Inteligente**: Sistema de fallback automático para WhatsApp Web e cópia de texto
 - **Validação em Tempo Real**: Validação de formulários com feedback visual imediato usando React Hook Form
 - **Ordenação Automática**: Histórico ordenado automaticamente por data (mais recentes primeiro)
+- **Histórico Multi-tipo**: Sistema unificado de histórico com suporte a múltiplos tipos de registros e visualização específica para cada tipo
 
 ### Qualidade de Código
 - **Linting**: ESLint 9.3 com configuração personalizada para React + TypeScript
@@ -287,4 +329,4 @@ Para dúvidas ou sugestões, entre em contato através de [warlleyrocha@icloud.c
 
 ⚡ **Desenvolvido com React 19 + TypeScript 5.8 + Vite 7.1**
 
-**Oficiais de Rede** - Sistema de gestão de materiais para equipes de campo
+**Oficiais de Rede** - Sistema completo de gestão de materiais e relatórios para equipes de campo
