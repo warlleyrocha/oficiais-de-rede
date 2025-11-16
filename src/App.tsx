@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import { MaterialRegister } from './pages/MaterialRegister';
-import { MaterialHistory } from './pages/MaterialHistory';
+import ServiceReport from './pages/ServiceReport';
 import { RequestMaterial } from './pages/MaterialRequisition';
 import Home from './pages/Home';
 import SplashScreen from '@/components/SplashScreen';
@@ -27,14 +27,14 @@ function AppContent() {
   const routeTitles: Record<string, string> = {
     '/material-register': 'Baixa de Material',
     '/material-requisition': 'Requisição de Material',
-    '/history': 'Histórico de Baixas',
+    '/service-report': 'Relatório de Serviços',
   };
 
   //Subtitles
   const routeSubtitles: Record<string, string> = {
     '/material-register': 'Registrar materiais utilizados',
     '/material-requisition': 'Solicitar novos materiais',
-    '/history': 'Consultar registros anteriores',
+    '/service-report': 'Gerar relatório de serviços realizados',
   };
 
   // Define o título com base na rota atual
@@ -52,7 +52,7 @@ function AppContent() {
             element={<MaterialRegister onNewLaunch={handleNewLaunch} />}
           />
           <Route path="/material-requisition" element={<RequestMaterial />} />
-          <Route path="/history" element={<MaterialHistory launches={launches} />} />
+          <Route path="/service-report" element={<ServiceReport />} />
         </Routes>
 
         <footer className="mt-[20px] text-center text-sm text-gray-500 pt-6">
