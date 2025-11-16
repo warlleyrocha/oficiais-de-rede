@@ -127,9 +127,9 @@ function MaterialLaunchHeader({
   formattedDate,
   formattedTime,
 }: {
-  item: MaterialLaunch;
-  formattedDate: string;
-  formattedTime: string;
+  readonly item: MaterialLaunch;
+  readonly formattedDate: string;
+  readonly formattedTime: string;
 }) {
   return (
     <>
@@ -164,9 +164,9 @@ function RequestHeader({
   formattedDate,
   formattedTime,
 }: {
-  item: MaterialRequest;
-  formattedDate: string;
-  formattedTime: string;
+  readonly item: MaterialRequest;
+  readonly formattedDate: string;
+  readonly formattedTime: string;
 }) {
   return (
     <div className="flex items-center gap-3 flex-wrap">
@@ -190,9 +190,9 @@ function ServiceReportHeader({
   formattedDate,
   formattedTime,
 }: {
-  item: ServiceReport;
-  formattedDate: string;
-  formattedTime: string;
+  readonly item: ServiceReport;
+  readonly formattedDate: string;
+  readonly formattedTime: string;
 }) {
   return (
     <>
@@ -220,7 +220,7 @@ function ServiceReportHeader({
 }
 
 // Componentes de Conteúdo
-function MaterialLaunchContent({ item }: { item: MaterialLaunch }) {
+function MaterialLaunchContent({ item }: { readonly item: MaterialLaunch }) {
   return (
     <>
       {/* Técnicos */}
@@ -248,7 +248,7 @@ function MaterialLaunchContent({ item }: { item: MaterialLaunch }) {
   );
 }
 
-function RequestContent({ item }: { item: MaterialRequest }) {
+function RequestContent({ item }: { readonly item: MaterialRequest }) {
   return (
     <>
       {/* Técnicos */}
@@ -276,7 +276,7 @@ function RequestContent({ item }: { item: MaterialRequest }) {
   );
 }
 
-function ServiceReportContent({ item }: { item: ServiceReport }) {
+function ServiceReportContent({ item }: { readonly item: ServiceReport }) {
   return (
     <>
       {/* Detalhes do Serviço */}
@@ -346,12 +346,12 @@ function ServiceReportContent({ item }: { item: ServiceReport }) {
 function MaterialsTable({
   materials,
 }: {
-  materials: {
-    id: string;
-    name: string;
-    code?: string;
-    unit: 'unidade' | 'metro';
-    quantity: number;
+  readonly materials: {
+    readonly id: string;
+    readonly name: string;
+    readonly code?: string;
+    readonly unit: 'unidade' | 'metro';
+    readonly quantity: number;
   }[];
 }) {
   return (

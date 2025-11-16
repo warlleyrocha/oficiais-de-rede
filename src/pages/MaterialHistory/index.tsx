@@ -14,7 +14,7 @@ export function HistoryPage() {
 
   // Define o tipo padrão como 'material' se não for fornecido ou for inválido
   const historyType: HistoryType =
-    type && ['material', 'request', 'service'].includes(type) ? (type as HistoryType) : 'material';
+    type && ['material', 'request', 'service'].includes(type) ? type : 'material';
 
   useEffect(() => {
     const loadItems = async () => {
@@ -24,13 +24,13 @@ export function HistoryPage() {
 
         switch (historyType) {
           case 'material':
-            data = await getMaterialLaunches();
+            data = getMaterialLaunches();
             break;
           case 'request':
-            data = await getRequestLaunches();
+            data = getRequestLaunches();
             break;
           case 'service':
-            data = await getServiceReports();
+            data = getServiceReports();
             break;
         }
 

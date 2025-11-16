@@ -53,7 +53,6 @@ export function Header({
             aria-label="Ver histórico"
           >
             <FiClock className="w-5 h-5" />
-            <span className="font-medium hidden sm:inline">Histórico</span>
           </button>
         )}
       </div>
