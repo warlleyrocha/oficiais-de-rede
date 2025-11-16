@@ -83,11 +83,7 @@ export function GenericHistory({ items, type }: GenericHistoryProps) {
                       />
                     )}
                     {type === 'request' && (
-                      <RequestHeader
-                        item={item as MaterialRequest}
-                        formattedDate={formattedDate}
-                        formattedTime={formattedTime}
-                      />
+                      <RequestHeader formattedDate={formattedDate} formattedTime={formattedTime} />
                     )}
                     {type === 'service' && (
                       <ServiceReportHeader
@@ -160,11 +156,9 @@ function MaterialLaunchHeader({
 }
 
 function RequestHeader({
-  item,
   formattedDate,
   formattedTime,
 }: {
-  readonly item: MaterialRequest;
   readonly formattedDate: string;
   readonly formattedTime: string;
 }) {

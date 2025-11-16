@@ -11,17 +11,7 @@ import type { HistoryType } from '@/types/history';
 import { HISTORY_TYPE_LABELS } from '@/types/history';
 
 function AppContent() {
-  const [launches, setLaunches] = useState<any[]>([]);
   const location = useLocation();
-
-  useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('launches') || '[]');
-    setLaunches(saved);
-  }, []);
-
-  const handleNewLaunch = (launch: any) => {
-    setLaunches((prev) => [...prev, launch]);
-  };
 
   // Verifica se não está na home
   const showHeader = location.pathname !== '/';
@@ -90,10 +80,7 @@ function AppContent() {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 pt-[4px] px-[16px] pb-[8px]">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/material-register"
-            element={<MaterialRegister onNewLaunch={handleNewLaunch} />}
-          />
+          <Route path="/material-register" element={<MaterialRegister />} />
           <Route path="/material-requisition" element={<RequestMaterial />} />
           <Route path="/service-report" element={<ServiceReport />} />
           <Route path="/historico/:type" element={<HistoryPage />} />
