@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { PackageCheck, History, Package } from 'lucide-react';
-import Logo from '@/assets/logo-png.png';
+import LogoCompany from '@/assets/logo.png';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -10,27 +10,27 @@ export default function Home() {
       id: 1,
       label: 'Baixa de Material',
       description: 'Registrar materiais utilizados',
-      icon: <Package size={28} color="#2d2854" />,
+      icon: <Package size={28} color="#be3100" />,
       path: '/material-register',
-      color: 'from-[#2d2854] to-[#4a3a7a]',
+      color: 'from-[#be3100] to-[#93AEC5]',
       bgColor: 'bg-purple-50',
     },
     {
       id: 2,
       label: 'Requisição de Material',
       description: 'Solicitar novos materiais',
-      icon: <PackageCheck size={28} color="#2d2854" />,
+      icon: <PackageCheck size={28} color="#be3100" />,
       path: '/material-requisition',
-      color: 'from-[#6d3164] to-[#8b4570]',
+      color: 'from-[#be3100] to-[#93AEC5]',
       bgColor: 'bg-purple-50',
     },
     {
       id: 3,
       label: 'Relatório de Serviços',
       description: 'Gerar relatório de serviços realizados',
-      icon: <History size={28} color="#2d2854" />,
+      icon: <History size={28} color="#be3100" />,
       path: '/service-report',
-      color: 'from-[#993649] to-[#b23c34]',
+      color: 'from-[#be3100] to-[#AFC5DC]',
       bgColor: 'bg-red-50',
     },
   ];
@@ -40,7 +40,7 @@ export default function Home() {
       <div className="w-full max-w-md space-y-4">
         {/* Header */}
         <div className="text-center mb-8 flex justify-center">
-          <img src={Logo} alt="Logo" className="w-[200px] h-[200px] object-contain" />
+          <img src={LogoCompany} alt="Logo" className="w-[200px] h-[200px] object-contain" />
         </div>
 
         {buttons.map((button) => (
