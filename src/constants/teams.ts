@@ -7,8 +7,8 @@ export const TEAM = [
   },
   {
     id: 2,
-    value: 'Carlos Jaime/Deylton',
-    label: 'Carlos Jaime/Deylton',
+    value: 'Carlos Jaime/Ramon',
+    label: 'Carlos Jaime/Ramon',
     registration: '',
   },
   {
@@ -19,8 +19,8 @@ export const TEAM = [
   },
   {
     id: 4,
-    value: 'Leandro/Marcelo',
-    label: 'Leandro/Marcelo',
+    value: 'Deylton/Robson',
+    label: 'Deylton/Robson',
     registration: '',
   },
   {

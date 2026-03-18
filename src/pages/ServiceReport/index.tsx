@@ -63,7 +63,7 @@ export function ServiceReport() {
       onSubmit={handleSubmit}
       submitButtonText="Compartilhar Relatório no WhatsApp"
     >
-      {({ register, errors, control }) => (
+      {({ register, errors, control, setValue }) => (
         <>
           {/* Seção: Dados da Equipe */}
           <div className="bg-[#f4f9fd]/80 backdrop-blur-sm rounded-2xl shadow border-0 p-6 space-y-6 transform hover:scale-[1.01] transition-all duration-300 hover:shadow-lg">
@@ -316,7 +316,7 @@ export function ServiceReport() {
           </div>
 
           {/* Seção: Materiais */}
-          <DataMaterials register={register} errors={errors} control={control} />
+          <DataMaterials register={register} errors={errors} control={control} setValue={setValue} />
 
           {/* Seção: Pendências e Observações */}
           <div className="bg-[#f4f9fd]/80 backdrop-blur-sm rounded-2xl shadow border-0 p-6 space-y-6 transform hover:scale-[1.01] transition-all duration-300 hover:shadow-lg">

@@ -53,7 +53,7 @@ export function MaterialRegister({ onNewLaunch }: FormProps) {
           <DataOfficer register={register} errors={errors} setValue={setValue} />
           <DataLocation register={register} errors={errors} />
           <DataService register={register} errors={errors} />
-          <DataMaterials register={register} errors={errors} control={control} />
+          <DataMaterials register={register} errors={errors} control={control} setValue={setValue} />
         </>
       )}
     </BaseForm>
