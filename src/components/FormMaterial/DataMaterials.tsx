@@ -1,47 +1,35 @@
-import { useFieldArray, useWatch } from 'react-hook-form';
 import type { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 import type { FormData } from '@/types/formMaterial';
-import { useState } from 'react';
 import { GoTrash } from 'react-icons/go';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { FormField } from '@/components/FormMaterial/FormField';
 import { SelectField } from '@/components/FormMaterial/SelectField';
 import { Package } from 'lucide-react';
+import { useDataMaterials } from '@/hooks/useDataMaterials';
 
 type DataMaterialsProps = {
   readonly register: UseFormRegister<FormData>;
   readonly errors: FieldErrors<FormData>;
   readonly control: Control<FormData>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  readonly setValue: (name: any, value: any) => void;
 };
 
-export function DataMaterials({ register, errors, control }: DataMaterialsProps) {
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'materials',
-  });
-
-  const materialValues = useWatch({
-    control,
-    name: 'materials',
-    defaultValue: [],
-  });
-
-  // Estado para controlar quais materiais estão abertos
-  const [openItems, setOpenItems] = useState<boolean[]>(fields.map((_, i) => i === 0));
-
-  const handleAppend = () => {
-    append({ name: '', code: '', quantity: 1, unit: 'unidade' });
-    setOpenItems((prev) => [...prev.map(() => false), true]); // fecha todos os antigos, abre o novo
-  };
-
-  const handleRemove = (index: number) => {
-    remove(index);
-    setOpenItems((prev) => prev.filter((_, i) => i !== index));
-  };
+export function DataMaterials({ register, errors, control, setValue }: DataMaterialsProps) {
+  const {
+    fields,
+    materialValues,
+    openItems,
+    materiaisApi,
+    materiaisOptions,
+    handleAppend,
+    handleRemove,
+    handleToggleOpen,
+    handleMaterialSelect,
+  } = useDataMaterials({ control, setValue });
 
   return (
     <div className="bg-[#eff5ff]/80 backdrop-blur-sm rounded-2xl shadow border-0 pt-6 transform hover:scale-[1.01] transition-all duration-300 hover:shadow-lg">
-      {/* Cabeçalho da seção */}
       <div className="flex justify-between items-center px-8">
         <h2 className="flex items-center space-x-2 text-xl font-semibold text-[#302b4b]">
           <div className="w-6 h-6 text-[#302b4b]">
@@ -51,7 +39,6 @@ export function DataMaterials({ register, errors, control }: DataMaterialsProps)
         </h2>
       </div>
 
-      {/* Lista de materiais */}
       <div className="py-6 px-4 space-y-4">
         {fields.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-8 text-gray-500">
@@ -70,21 +57,13 @@ export function DataMaterials({ register, errors, control }: DataMaterialsProps)
               <Collapsible
                 key={field.id}
                 open={openItems[index]}
-                onOpenChange={(val) =>
-                  setOpenItems((prev) => {
-                    const newState = [...prev];
-                    newState[index] = val;
-                    return newState;
-                  })
-                }
+                onOpenChange={(val) => handleToggleOpen(index, val)}
               >
                 <CollapsibleTrigger asChild>
                   <div className="flex justify-between items-center p-4 bg-[#f0f6ff] border border-white/20 rounded-xl cursor-pointer shadow">
                     <div className="flex items-center space-x-2">
                       <h3 className="text-md font-semibold text-[#302b4b]">
-                        {materialValues[index]?.name
-                          ? materialValues[index].name
-                          : `Material ${index + 1}`}
+                        {materialValues[index]?.name || `Material ${index + 1}`}
                       </h3>
                     </div>
                     <GoTrash color="red" onClick={() => handleRemove(index)} />
@@ -92,15 +71,27 @@ export function DataMaterials({ register, errors, control }: DataMaterialsProps)
                 </CollapsibleTrigger>
 
                 <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 p-4 bg-[#f0f6ff]/80 rounded-xl border border-white/20 shadow ">
-                    <FormField<FormData>
-                      id={`material-name-${index}`}
-                      name={`materials.${index}.name`}
-                      label="Nome do Material *"
-                      placeholder="Ex: Cabo de rede"
-                      register={register}
-                      error={errors.materials?.[index]?.name}
-                    />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 p-4 bg-[#f0f6ff]/80 rounded-xl border border-white/20 shadow">
+                    {materiaisApi.length > 0 ? (
+                      <SelectField<FormData>
+                        id={`material-name-${index}`}
+                        name={`materials.${index}.name`}
+                        label="Nome do Material *"
+                        register={register}
+                        error={errors.materials?.[index]?.name}
+                        onChange={(e) => handleMaterialSelect(index, e.target.value)}
+                        options={materiaisOptions}
+                      />
+                    ) : (
+                      <FormField<FormData>
+                        id={`material-name-${index}`}
+                        name={`materials.${index}.name`}
+                        label="Nome do Material *"
+                        placeholder="Ex: Cabo de rede"
+                        register={register}
+                        error={errors.materials?.[index]?.name}
+                      />
+                    )}
 
                     <FormField<FormData>
                       id={`material-code-${index}`}
