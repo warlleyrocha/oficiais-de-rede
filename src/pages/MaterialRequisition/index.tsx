@@ -59,7 +59,7 @@ export function RequestMaterial() {
             />
           </div>
 
-          <DataMaterials register={register} errors={errors} control={control} />
+          <DataMaterials register={register} errors={errors} control={control} setValue={setValue} />
         </>
       )}
     </BaseForm>
