@@ -1,5 +1,5 @@
 export type MaterialApi = {
   id: number;
-  nomematerial: string;
+  nomeMaterial: string;
   codigo: string | null;
 };
