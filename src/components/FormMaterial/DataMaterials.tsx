@@ -4,6 +4,7 @@ import { GoTrash } from 'react-icons/go';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { FormField } from '@/components/FormMaterial/FormField';
 import { SelectField } from '@/components/FormMaterial/SelectField';
+import { ComboboxField } from '@/components/FormMaterial/ComboboxField';
 import { Package } from 'lucide-react';
 import { useDataMaterials } from '@/hooks/useDataMaterials';
 
@@ -73,14 +74,14 @@ export function DataMaterials({ register, errors, control, setValue }: DataMater
                 <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 p-4 bg-[#f0f6ff]/80 rounded-xl border border-white/20 shadow">
                     {materiaisApi.length > 0 ? (
-                      <SelectField<FormData>
+                      <ComboboxField
                         id={`material-name-${index}`}
-                        name={`materials.${index}.name`}
                         label="Nome do Material *"
-                        register={register}
+                        value={materialValues[index]?.name ?? ''}
+                        onChange={(val) => handleMaterialSelect(index, val)}
                         error={errors.materials?.[index]?.name}
-                        onChange={(e) => handleMaterialSelect(index, e.target.value)}
                         options={materiaisOptions}
+                        placeholder="Digite ou selecione um material"
                       />
                     ) : (
                       <FormField<FormData>

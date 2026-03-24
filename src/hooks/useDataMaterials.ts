@@ -44,16 +44,16 @@ export function useDataMaterials({ control, setValue }: UseDataMaterialsProps) {
   }
 
   function handleMaterialSelect(index: number, selectedName: string) {
+    setValue(`materials.${index}.name`, selectedName);
     const found = materiaisApi.find((m) => m.nomeMaterial === selectedName);
-    if (found) {
-      setValue(`materials.${index}.name`, found.nomeMaterial);
-      setValue(`materials.${index}.code`, found.codigo ?? '');
-    }
+    setValue(`materials.${index}.code`, found?.codigo ?? '');
   }
 
   const materiaisOptions = [
     { value: '', label: 'Selecione um material' },
-    ...materiaisApi.map((m) => ({ value: m.nomeMaterial, label: m.nomeMaterial })),
+    ...materiaisApi
+      .map((m) => ({ value: m.nomeMaterial, label: m.nomeMaterial }))
+      .sort((a, b) => a.label.localeCompare(b.label, 'pt-BR')),
   ];
 
   return {
